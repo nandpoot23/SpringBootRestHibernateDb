@@ -1,0 +1,53 @@
+buildscript {
+
+	ext {
+		springBootVersion = '1.4.3.RELEASE'
+	}
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'SpringBootRestHibernateDb'
+	version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework:spring-tx')
+    
+    compile(group:'org.hibernate', name:'hibernate-core', version:'4.3.3.Final') 
+    {
+        exclude group: 'javax',  module: "javaee-api"
+    }
+    
+    compile(group:'org.hibernate', name:'hibernate-entitymanager', version:'4.3.3.Final') 
+    {
+        exclude group: 'javax',  module: "javaee-api"
+    }
+    
+    compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.2.2'
+    compile group: 'org.springframework', name: 'spring-orm', version: '4.3.3.RELEASE'
+    
+	runtime('mysql:mysql-connector-java')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	
+}
